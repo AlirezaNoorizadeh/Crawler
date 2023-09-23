@@ -14,7 +14,7 @@
             padding: 12px 20px;
             margin: 8px 3px;
             box-sizing: border-box;
-            border: 4px solid #ccc;
+            border: 3px solid #ccc;
             border-radius: 15px;
         }
     
@@ -43,13 +43,9 @@
         }
 
         button.ADD {
-            /* background: #45bd55; */
             border-radius: 8px;
-            /* padding: 12px; */
             border: 4px solid #45a049;
-            /* border: 4px solid #3bd343; */
             padding: 12px 25px;
-
             font-size: larger;
         }
     
@@ -103,13 +99,22 @@
             padding: 12px;
         }
 
+        input:focus {
+            outline: none;
+            background-color: white;
+        }
+
+
+
     </style>
     <script>
-        const listOfTags = ["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","blockquote","body","br","button","canvas"
-                            ,"caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","div","dl","dt","em","embed"
-                            ,"fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hr","html","i","iframe"
-                            ,"img","input","ins","kbd","label","legend","li","link","main","map","mark","meta","meter","nav","noscript","object","ol"
-                            ,"optgroup","option","output","p","param","picture","pre","progress","q","rp","rt","ruby","s","samp","ul"
+        const listOfTags = ["html","html","head","/head","body","a","abbr","acronym","address","applet","area","article","aside","audio","b","base","basefont","bdi","bdo"
+                        ,"bgsound","big","blink","blockquote","body","br","button","canvas","caption","center","cite","code","col","colgroup","command","content","data","datalist"
+                        ,"dd","del","details","dfn","dialog","dir","div","dl","dt","em","embed","fieldset","figcaption","figure","font","footer","form","frame","frameset","h1"
+                        ,"h2","h3","h4","h5","h6","header","hr","html","i","iframe","img","input","ins","isindex","kbd","keygen","label","legend","li","link","listing","main"
+                        ,"map","mark","marquee","menu","meta","meter","nav","nobr","noembed","noframes","noscript","object","ol","optgroup","option","output","p","param"
+                        ,"picture","plaintext","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","shadow","small","source","span","strike","strong"
+                        ,"style","sub","summary","sup","table","tbody","td","template","textarea","tfoot","th","thead","time","title","tr","track","tt","u","ul","var","video","wbr","xmp"
                         ];
                         
         let divCount = 0;
@@ -136,24 +141,19 @@
         function checkURL(divNum) {
             const url = document.getElementById('urlInput' + divNum).value;
             if (isValidURL(url)) {
-                // document.getElementById('urlInput' + divNum).style.backgroundColor = 'green';
-                // document.getElementById('urlInput' + divNum).style.borderColor = 'white';
+
                 document.getElementById('urlInput' + divNum).style.borderColor = '#3bd343';
             } else {
-                // document.getElementById('urlInput' + divNum).style.backgroundColor = 'red';
-                // document.getElementById('urlInput' + divNum).style.borderColor = 'white';
                 document.getElementById('urlInput' + divNum).style.borderColor = 'red';
             }
         }
 
         function checkTag(divNum) {
-            const tag = document.getElementById('tagInput' + divNum).value;
+            const tag = document.getElementById('tagInput' + divNum).value.toLowerCase();
             if (listOfTags.includes(tag)) {
-                document.getElementById('tagInput' + divNum).style.backgroundColor = 'green';
-                document.getElementById('tagInput' + divNum).style.borderColor = '#white';
+                document.getElementById('tagInput' + divNum).style.borderColor = '#3bd343';
             } else {
-                document.getElementById('tagInput' + divNum).style.backgroundColor = 'red';
-                document.getElementById('tagInput' + divNum).style.borderColor = 'white';
+                document.getElementById('tagInput' + divNum).style.borderColor = 'red';
             }
         }
 
@@ -218,8 +218,8 @@
 </head>
 
 <body>
-        <button class="ADD" style="display: inline;" onclick="addDiv()">Add</button>
-        <h1 style="display: inline;">Find Tags on a Web Page</h1>
+    <button class="ADD" style="display: inline;" onclick="addDiv()">Add</button>
+    <h1 style="display: inline;">Find Tags on a Web Page</h1>
 </body>
 
 </html>
