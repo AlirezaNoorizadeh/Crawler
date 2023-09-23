@@ -1,164 +1,173 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
+<!DOCTYPE html>
+<html>
 
-    input[type="text"] {
-        padding: 12px 20px;
-        margin: 8px 3px;
-        box-sizing: border-box;
-        border: 2px solid #ccc;
-        border-radius: 15px;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Tags on a Web Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    
+        input[type="text"] {
+            padding: 12px 20px;
+            margin: 8px 3px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+        }
+    
+        #main {
+            background-color: #525252;
+            margin-top: 15px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+        }
+    
+        button {
+            transition: background-color 1s;
+            border: 4px solid #45a049;
+            background-color: #456446;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 3px;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #45a049;
+        }
+    
+        button.remove {
+            border: 4px solid rgb(219, 0, 0);
+            background-color: #bb6b6b;
+        }
+    
+        button.remove:hover {
+            background-color: rgb(221, 0, 0);
+        }
+    
+        code {
+            display: block;
+            white-space: pre-wrap;
+            background-color: #f4f4f4;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 15px;
+        }
+    
+        .contents {
+            background-color: rgb(167, 167, 167);
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 300px; 
+            overflow: auto;
+        }
+    
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+    
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
+    
+        ::-webkit-scrollbar-thumb {
+            background: #45a049;
+            border-radius: 8px;
+        }
+    
+        ::-webkit-scrollbar-thumb:hover {
+            background: #007906;
+        }
+    
+        h1 {
+            background: #45bd55;
+            border-radius: 8px;
+            padding: 12px;
+        }
+    </style>
+    <script>
+        let divCount = 0;
 
-    #main {
-        background-color: #525252;
-        margin-top: 15px;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 15px;
-    }
-
-    button {
-        transition: background-color 1s;
-        border: 4px solid #45a049;
-        background-color: #456446;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 3px;
-        border-radius: 15px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-
-    button.remove {
-        border: 4px solid rgb(219, 0, 0);
-        background-color: #bb6b6b;
-    }
-
-    button.remove:hover {
-        background-color: rgb(221, 0, 0);
-    }
-
-    code {
-        display: block;
-        white-space: pre-wrap;
-        background-color: #f4f4f4;
-        padding: 5px;
-        margin-bottom: 10px;
-        border-radius: 15px;
-    }
-
-    .contents {
-        background-color: rgb(167, 167, 167);
-        padding: 15px;
-        border-radius: 8px;
-        max-height: 300px; 
-        overflow: auto;
-    }
-
-    ::-webkit-scrollbar {
-        width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 8px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #45a049;
-        border-radius: 8px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: #007906;
-    }
-
-    h1 {
-        background: #45bd55;
-        border-radius: 8px;
-        padding: 12px;
-    }
-</style>
-
-<button style="display: inline;" onclick="addDiv()">Add</button>
-<h1 style="display: inline;" >Find Tags on a Web Page</h1>
-
-<script>
-let divCount = 0;
-
-function addDiv() {
-    divCount++;
-    let newMainDiv = document.createElement("div");
-    newMainDiv.id = "main";
-    let newDiv = document.createElement("div");
-    newDiv.innerHTML = '<input type="text" id="urlInput' + divCount + '" placeholder="Enter website URL">' +
-                  '<input type="text" id="tagInput' + divCount + '" placeholder="Enter tag to search">' +
-                  '<button onclick="loadDoc(' + divCount + ')">Load</button>' +
-                  '<button class="remove" onclick="removeDiv(event)">Remove</button>' +
-                  '<div class="contents" id="Content' + divCount + '"></div>';
-    newMainDiv.appendChild(newDiv);
-    document.body.appendChild(newMainDiv);
-}
-
-function removeDiv(event) {
-    let divToRemove = event.target.parentElement.parentElement;
-    divToRemove.remove();
-}
-
-
-function isValidURL(url) {
-    if (!/^https?:\/\//i.test(url)) {
-        return false;
-    }
-
-    const domain = url.match(/^https?:\/\/(?:www\.)?([^/]+)/i)[1];
-    const subdomains = domain.split('.');
-    if (subdomains.length > 2) {
-        return false;
-    }
-
-    return true;
-}
-
-function loadDoc(divNum) {
-    const url = document.getElementById('urlInput' + divNum).value;
-    const tagToSearch = document.getElementById('tagInput' + divNum).value;
-
-    if (!isValidURL(url)) {
-        alert("Please enter a valid URL.");
-        return;
-    }
-
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-        let content = document.createElement("div");
-        content.innerHTML = this.responseText;
-
-        let tags = content.querySelectorAll(tagToSearch);
-        let listContainer = document.getElementById('Content' + divNum);
-
-        listContainer.innerHTML = "";
-
-        if (tags.length === 0) {
-            alert("No matching tags found.");
-            return;
+        function addDiv() {
+            divCount++;
+            let newMainDiv = document.createElement("div");
+            newMainDiv.id = "main";
+            let newDiv = document.createElement("div");
+            newDiv.innerHTML = '<input type="text" id="urlInput' + divCount + '" placeholder="Enter website URL">' +
+                        '<input type="text" id="tagInput' + divCount + '" placeholder="Enter tag to search">' +
+                        '<button onclick="loadDoc(' + divCount + ')">Load</button>' +
+                        '<button class="remove" onclick="removeDiv(event)">Remove</button>' +
+                        '<div class="contents" id="Content' + divCount + '"></div>';
+            newMainDiv.appendChild(newDiv);
+            document.body.appendChild(newMainDiv);
         }
 
-        tags.forEach(tag => {
-            let codeElement = document.createElement("code");
-            codeElement.innerText = tag.outerHTML;
-            let tagDiv = document.createElement("div");
-            tagDiv.appendChild(codeElement);
-            listContainer.appendChild(tagDiv);
-        });
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
+        function removeDiv(event) {
+            let divToRemove = event.target.parentElement.parentElement;
+            divToRemove.remove();
+        }
 
-</script>
+        function isValidURL(url) {
+            if (!/^https?:\/\//i.test(url)) {
+                return false;
+            }
+
+            const domain = url.match(/^https?:\/\/(?:www\.)?([^/]+)/i)[1];
+            const subdomains = domain.split('.');
+            if (subdomains.length > 2) {
+                return false;
+            }
+
+            return true;
+        }
+
+        function loadDoc(divNum) {
+            const url = document.getElementById('urlInput' + divNum).value;
+            const tagToSearch = document.getElementById('tagInput' + divNum).value;
+
+            if (!isValidURL(url)) {
+                alert("Please enter a valid URL.");
+                return;
+            }
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                let content = document.createElement("div");
+                content.innerHTML = this.responseText;
+
+                let tags = content.querySelectorAll(tagToSearch);
+                let listContainer = document.getElementById('Content' + divNum);
+
+                listContainer.innerHTML = "";
+
+                if (tags.length === 0) {
+                    alert("No matching tags found.");
+                    return;
+                }
+
+                tags.forEach(tag => {
+                    let codeElement = document.createElement("code");
+                    codeElement.innerText = tag.outerHTML;
+                    let tagDiv = document.createElement("div");
+                    tagDiv.appendChild(codeElement);
+                    listContainer.appendChild(tagDiv);
+                });
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+    </script>
+</head>
+
+<body>
+    <button style="display: inline;" onclick="addDiv()">Add</button>
+    <h1 style="display: inline;">Find Tags on a Web Page</h1>
+</body>
+
+</html>
