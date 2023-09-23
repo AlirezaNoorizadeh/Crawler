@@ -5,19 +5,18 @@
 
     input[type="text"] {
         padding: 12px 20px;
-        margin: 8px 0;
+        margin: 8px 3px;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 15px;
     }
 
-    [id^="main"] {
+    #main {
         background-color: #525252;
         margin-top: 15px;
         padding: 12px;
         border: 1px solid #ccc;
         border-radius: 15px;
-        margin-bottom: 30px;
     }
 
     button {
@@ -26,7 +25,7 @@
         background-color: #456446;
         color: white;
         padding: 14px 20px;
-        margin: 8px 0;
+        margin: 8px 3px;
         border-radius: 15px;
         cursor: pointer;
     }
@@ -44,13 +43,6 @@
         background-color: rgb(221, 0, 0);
     }
 
-    div#Content {
-        margin-top: 15px;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 15px;
-    }
-
     code {
         display: block;
         white-space: pre-wrap;
@@ -64,6 +56,8 @@
         background-color: rgb(167, 167, 167);
         padding: 15px;
         border-radius: 8px;
+        max-height: 300px; 
+        overflow: auto;
     }
 
     ::-webkit-scrollbar {
@@ -84,19 +78,15 @@
         background: #007906;
     }
 
+    h1 {
+        background: #45bd55;
+        border-radius: 8px;
+        padding: 12px;
+    }
 </style>
 
-
-<div id="main">
-    <div>
-        <input type="text" id="urlInput0" placeholder="Enter website URL">
-        <input type="text" id="tagInput0" placeholder="Enter tag to search">
-        <button onclick="loadDoc(0)">Load</button>
-        <div style="max-height: 300px; overflow: auto;" class="contents" id="Content0"></div>
-    </div>
-    <button onclick="addDiv()">Add</button>
-    <button class="remove" onclick="removeDiv(event)">Remove</button>
-</div>
+<button style="display: inline;" onclick="addDiv()">Add</button>
+<h1 style="display: inline;" >Find Tags on a Web Page</h1>
 
 <script>
 let divCount = 0;
@@ -104,30 +94,22 @@ let divCount = 0;
 function addDiv() {
     divCount++;
     let newMainDiv = document.createElement("div");
-    newMainDiv.id = "main" + divCount;
+    newMainDiv.id = "main";
     let newDiv = document.createElement("div");
     newDiv.innerHTML = '<input type="text" id="urlInput' + divCount + '" placeholder="Enter website URL">' +
                   '<input type="text" id="tagInput' + divCount + '" placeholder="Enter tag to search">' +
                   '<button onclick="loadDoc(' + divCount + ')">Load</button>' +
-                  '<div style="max-height: 300px; overflow: auto;" class="contents" id="Content' + divCount + '"></div>';
+                  '<button class="remove" onclick="removeDiv(event)">Remove</button>' +
+                  '<div class="contents" id="Content' + divCount + '"></div>';
     newMainDiv.appendChild(newDiv);
-    let addButton = document.createElement("button");
-    addButton.innerText = "Add";
-    addButton.onclick = addDiv;
-    newMainDiv.appendChild(addButton);
-    let removeButton = document.createElement("button");
-    removeButton.innerText = "Remove";
-    removeButton.classList.add("remove");
-    removeButton.onclick = removeDiv;
-    newMainDiv.appendChild(removeButton);
     document.body.appendChild(newMainDiv);
 }
 
-
 function removeDiv(event) {
-    let divToRemove = event.target.parentElement;
+    let divToRemove = event.target.parentElement.parentElement;
     divToRemove.remove();
 }
+
 
 function isValidURL(url) {
     if (!/^https?:\/\//i.test(url)) {
