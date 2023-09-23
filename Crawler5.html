@@ -11,12 +11,13 @@
         border-radius: 15px;
     }
 
-    #main {
+    [id^="main"] {
         background-color: #525252;
         margin-top: 15px;
         padding: 12px;
         border: 1px solid #ccc;
         border-radius: 15px;
+        margin-bottom: 30px;
     }
 
     button {
@@ -83,14 +84,9 @@
         background: #007906;
     }
 
-    h1 {
-        background: #45bd55;
-        border-radius: 8px;
-        padding: 12px;
-    }
 </style>
 
-<h1>Find Tags on a Web Page</h1>
+
 <div id="main">
     <div>
         <input type="text" id="urlInput0" placeholder="Enter website URL">
@@ -108,7 +104,7 @@ let divCount = 0;
 function addDiv() {
     divCount++;
     let newMainDiv = document.createElement("div");
-    newMainDiv.id = "main";
+    newMainDiv.id = "main" + divCount;
     let newDiv = document.createElement("div");
     newDiv.innerHTML = '<input type="text" id="urlInput' + divCount + '" placeholder="Enter website URL">' +
                   '<input type="text" id="tagInput' + divCount + '" placeholder="Enter tag to search">' +
