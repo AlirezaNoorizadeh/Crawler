@@ -8,7 +8,7 @@
         margin: 8px 0;
         box-sizing: border-box;
         border: 2px solid #ccc;
-        border-radius: 4px;
+        border-radius: 15px;
     }
 
     #main {
@@ -16,15 +16,16 @@
         margin-top: 15px;
         padding: 12px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 15px;
     }
+
     button {
         background-color: #4CAF50;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
-        border-radius: 4px;
+        border-radius: 15px;
         cursor: pointer;
     }
 
@@ -36,7 +37,7 @@
         margin-top: 15px;
         padding: 12px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 15px;
     }
 
     code {
@@ -45,6 +46,7 @@
         background-color: #f4f4f4;
         padding: 5px;
         margin-bottom: 10px;
+        border-radius: 15px;
     }
 </style>
 
@@ -65,21 +67,25 @@ let divCount = 0;
 
 function addDiv() {
     divCount++;
+    let newMainDiv = document.createElement("div");
+    newMainDiv.id = "main";
     let newDiv = document.createElement("div");
     newDiv.innerHTML = `<input type="text" id="urlInput${divCount}" placeholder="Enter website URL">
                         <input type="text" id="tagInput${divCount}" placeholder="Enter tag to search">
                         <button onclick="loadDoc(${divCount})">Load</button>
                         <div id="Content${divCount}"></div>`;
+    newMainDiv.appendChild(newDiv);
     let addButton = document.createElement("button");
     addButton.innerText = "Add";
     addButton.onclick = addDiv;
-    newDiv.appendChild(addButton);
+    newMainDiv.appendChild(addButton);
     let removeButton = document.createElement("button");
     removeButton.innerText = "Remove";
     removeButton.onclick = removeDiv;
-    newDiv.appendChild(removeButton);
-    document.querySelector("#main").appendChild(newDiv);
+    newMainDiv.appendChild(removeButton);
+    document.body.appendChild(newMainDiv);
 }
+
 
 function removeDiv(event) {
     let divToRemove = event.target.parentElement;
@@ -135,4 +141,5 @@ function loadDoc(divNum) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
+
 </script>
