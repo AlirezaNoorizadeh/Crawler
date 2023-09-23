@@ -5,7 +5,7 @@
     <div id="Content0"></div>
 </div>
 <button onclick="addDiv()">Add</button>
-<button onclick="removeDiv()">Remove</button>
+<button onclick="removeDiv(event)">Remove</button>
 
 <script>
 let divCount = 0;
@@ -16,10 +16,21 @@ function addDiv() {
     newDiv.innerHTML = `<input type="text" id="urlInput${divCount}" placeholder="Enter website URL">
                         <input type="text" id="tagInput${divCount}" placeholder="Enter tag to search">
                         <button onclick="loadDoc(${divCount})">Load</button>
-                        <div id="Content${divCount}"></div>
-                        <button onclick="addDiv()">Add</button>
-                        <button onclick="removeDiv()">Remove</button>`;
+                        <div id="Content${divCount}"></div>`;
+    let addButton = document.createElement("button");
+    addButton.innerText = "Add";
+    addButton.onclick = addDiv;
+    newDiv.appendChild(addButton);
+    let removeButton = document.createElement("button");
+    removeButton.innerText = "Remove";
+    removeButton.onclick = removeDiv;
+    newDiv.appendChild(removeButton);
     document.body.appendChild(newDiv);
+}
+
+function removeDiv(event) {
+    let divToRemove = event.target.parentElement;
+    divToRemove.remove();
 }
 
 function isValidURL(url) {
