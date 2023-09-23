@@ -1,0 +1,35 @@
+<div>
+    <input type="text" id="urlInput" placeholder="Enter website URL">
+    <input type="text" id="tagInput" placeholder="Enter tag to search">
+    <button onclick="loadDoc()">Load</button>
+</div>
+
+<div id="poets"></div>
+
+<script>
+    function loadDoc() {
+        const url = document.getElementById("urlInput").value;
+        const tagToSearch = document.getElementById("tagInput").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            let content = document.createElement("div");
+            content.innerHTML = this.responseText;
+
+            let poets = content.querySelectorAll(tagToSearch);
+            let poetsContainer = document.getElementById("poets");
+
+            poets.forEach(poet => {
+                let poetName = document.createElement("h6");
+                poetName.innerHTML = poet.children[1].children[0].innerHTML;
+                let poetIMG = document.createElement("img");
+                poetIMG.setAttribute("src", poet.children[0].children[0].getAttribute("src"));
+                let poetDiv = document.createElement("div");
+                poetDiv.appendChild(poetIMG);
+                poetDiv.appendChild(poetName);
+                poetsContainer.appendChild(poetDiv);
+            });
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+</script>
