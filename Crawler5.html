@@ -11,6 +11,13 @@
         border-radius: 4px;
     }
 
+    #main {
+        background-color: #525252;
+        margin-top: 15px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
     button {
         background-color: #4CAF50;
         color: white;
@@ -41,14 +48,17 @@
     }
 </style>
 
-<div>
-    <input type="text" id="urlInput0" placeholder="Enter website URL">
-    <input type="text" id="tagInput0" placeholder="Enter tag to search">
-    <button onclick="loadDoc(0)">Load</button>
-    <div id="Content0"></div>
+
+<div id="main">
+    <div>
+        <input type="text" id="urlInput0" placeholder="Enter website URL">
+        <input type="text" id="tagInput0" placeholder="Enter tag to search">
+        <button onclick="loadDoc(0)">Load</button>
+        <div id="Content0"></div>
+    </div>
+    <button onclick="addDiv()">Add</button>
+    <button onclick="removeDiv(event)">Remove</button>
 </div>
-<button onclick="addDiv()">Add</button>
-<button onclick="removeDiv(event)">Remove</button>
 
 <script>
 let divCount = 0;
@@ -68,7 +78,7 @@ function addDiv() {
     removeButton.innerText = "Remove";
     removeButton.onclick = removeDiv;
     newDiv.appendChild(removeButton);
-    document.body.appendChild(newDiv);
+    document.querySelector("#main").appendChild(newDiv);
 }
 
 function removeDiv(event) {
