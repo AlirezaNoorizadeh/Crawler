@@ -20,17 +20,27 @@
     }
 
     button {
-        background-color: #4CAF50;
+        transition: background-color 1s;
+        border: 4px solid #45a049;
+        background-color: #456446;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
-        border: none;
         border-radius: 15px;
         cursor: pointer;
     }
 
     button:hover {
         background-color: #45a049;
+    }
+
+    button.remove {
+        border: 4px solid rgb(219, 0, 0);
+        background-color: #bb6b6b;
+    }
+
+    button.remove:hover {
+        background-color: rgb(221, 0, 0);
     }
 
     div#Content {
@@ -48,18 +58,48 @@
         margin-bottom: 10px;
         border-radius: 15px;
     }
+
+    .contents {
+        background-color: rgb(167, 167, 167);
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #45a049;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #007906;
+    }
+
+    h1 {
+        background: #45bd55;
+        border-radius: 8px;
+        padding: 12px;
+    }
 </style>
 
-
+<h1>Find Tags on a Web Page</h1>
 <div id="main">
     <div>
         <input type="text" id="urlInput0" placeholder="Enter website URL">
         <input type="text" id="tagInput0" placeholder="Enter tag to search">
         <button onclick="loadDoc(0)">Load</button>
-        <div id="Content0"></div>
+        <div style="max-height: 300px; overflow: auto;" class="contents" id="Content0"></div>
     </div>
     <button onclick="addDiv()">Add</button>
-    <button onclick="removeDiv(event)">Remove</button>
+    <button class="remove" onclick="removeDiv(event)">Remove</button>
 </div>
 
 <script>
@@ -70,10 +110,10 @@ function addDiv() {
     let newMainDiv = document.createElement("div");
     newMainDiv.id = "main";
     let newDiv = document.createElement("div");
-    newDiv.innerHTML = `<input type="text" id="urlInput${divCount}" placeholder="Enter website URL">
-                        <input type="text" id="tagInput${divCount}" placeholder="Enter tag to search">
-                        <button onclick="loadDoc(${divCount})">Load</button>
-                        <div id="Content${divCount}"></div>`;
+    newDiv.innerHTML = '<input type="text" id="urlInput' + divCount + '" placeholder="Enter website URL">' +
+                  '<input type="text" id="tagInput' + divCount + '" placeholder="Enter tag to search">' +
+                  '<button onclick="loadDoc(' + divCount + ')">Load</button>' +
+                  '<div style="max-height: 300px; overflow: auto;" class="contents" id="Content' + divCount + '"></div>';
     newMainDiv.appendChild(newDiv);
     let addButton = document.createElement("button");
     addButton.innerText = "Add";
@@ -81,6 +121,7 @@ function addDiv() {
     newMainDiv.appendChild(addButton);
     let removeButton = document.createElement("button");
     removeButton.innerText = "Remove";
+    removeButton.classList.add("remove");
     removeButton.onclick = removeDiv;
     newMainDiv.appendChild(removeButton);
     document.body.appendChild(newMainDiv);
@@ -107,8 +148,8 @@ function isValidURL(url) {
 }
 
 function loadDoc(divNum) {
-    const url = document.getElementById(`urlInput${divNum}`).value;
-    const tagToSearch = document.getElementById(`tagInput${divNum}`).value;
+    const url = document.getElementById('urlInput' + divNum).value;
+    const tagToSearch = document.getElementById('tagInput' + divNum).value;
 
     if (!isValidURL(url)) {
         alert("Please enter a valid URL.");
@@ -121,7 +162,7 @@ function loadDoc(divNum) {
         content.innerHTML = this.responseText;
 
         let tags = content.querySelectorAll(tagToSearch);
-        let listContainer = document.getElementById(`Content${divNum}`);
+        let listContainer = document.getElementById('Content' + divNum);
 
         listContainer.innerHTML = "";
 
