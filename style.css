@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+input[type="text"] {
+    padding: 12px 20px;
+    margin: 8px 3px;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    border-radius: 15px;
+}
+
+#main {
+    background-color: #525252;
+    margin-top: 15px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+button {
+    transition: background-color 1s;
+    border: 4px solid #45a049;
+    background-color: #456446;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 3px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: large;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button.ADD {
+    border-radius: 8px;
+    border: 4px solid #45a049;
+    padding: 12px 25px;
+    font-size: larger;
+}
+
+button.remove {
+    border: 4px solid rgb(219, 0, 0);
+    background-color: #bb6b6b;
+}
+
+button.remove:hover {
+    background-color: rgb(221, 0, 0);
+}
+
+code {
+    display: block;
+    white-space: pre-wrap;
+    background-color: #f4f4f4;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.contents {
+    background-color: rgb(167, 167, 167);
+    padding: 15px;
+    border-radius: 8px;
+    max-height: 300px; 
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #45a049;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #007906;
+}
+
+h1 {
+    background: #45bd55;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+input:focus {
+    outline: none;
+    background-color: white;
+}
