@@ -4,16 +4,25 @@
     <button onclick="loadDoc()">Load</button>
     <div id="Content"></div>
 </div>
+<button onclick="addDiv()">Add</button>
 
 
 <script>
+function addDiv() {
+    let newDiv = document.createElement("div");
+    newDiv.innerHTML = `<input type="text" id="urlInput" placeholder="Enter website URL">
+                        <input type="text" id="tagInput" placeholder="Enter tag to search">
+                        <button onclick="loadDoc()">Load</button>
+                        <div id="Content"></div>
+                        <button onclick="addDiv()">Add</button>`;
+    document.body.appendChild(newDiv);
+}
+
 function isValidURL(url) {
-    // Check if the URL starts with "http://" or "https://"
     if (!/^https?:\/\//i.test(url)) {
         return false;
     }
 
-    // Check for subdomains
     const domain = url.match(/^https?:\/\/(?:www\.)?([^/]+)/i)[1];
     const subdomains = domain.split('.');
     if (subdomains.length > 2) {
@@ -27,7 +36,6 @@ function loadDoc() {
     const url = document.getElementById("urlInput").value;
     const tagToSearch = document.getElementById("tagInput").value;
 
-    // Validate the URL
     if (!isValidURL(url)) {
         alert("Please enter a valid URL.");
         return;
@@ -41,7 +49,6 @@ function loadDoc() {
         let tags = content.querySelectorAll(tagToSearch);
         let listContainer = document.getElementById("Content");
 
-        // Clear existing content before displaying new results
         listContainer.innerHTML = "";
 
         if (tags.length === 0) {
