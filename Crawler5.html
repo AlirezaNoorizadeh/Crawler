@@ -8,13 +8,15 @@
 
 
 <script>
+let divCount = 0;
+
 function addDiv() {
+    divCount++;
     let newDiv = document.createElement("div");
-    newDiv.innerHTML = `<input type="text" id="urlInput" placeholder="Enter website URL">
-                        <input type="text" id="tagInput" placeholder="Enter tag to search">
-                        <button onclick="loadDoc()">Load</button>
-                        <div id="Content"></div>
-                        <button onclick="addDiv()">Add</button>`;
+    newDiv.innerHTML = `<input type="text" id="urlInput${divCount}" placeholder="Enter website URL">
+                        <input type="text" id="tagInput${divCount}" placeholder="Enter tag to search">
+                        <button onclick="loadDoc(${divCount})">Load</button>
+                        <div id="Content${divCount}"></div>`;
     document.body.appendChild(newDiv);
 }
 
@@ -32,9 +34,9 @@ function isValidURL(url) {
     return true;
 }
 
-function loadDoc() {
-    const url = document.getElementById("urlInput").value;
-    const tagToSearch = document.getElementById("tagInput").value;
+function loadDoc(divNum) {
+    const url = document.getElementById(`urlInput${divNum}`).value;
+    const tagToSearch = document.getElementById(`tagInput${divNum}`).value;
 
     if (!isValidURL(url)) {
         alert("Please enter a valid URL.");
@@ -47,7 +49,7 @@ function loadDoc() {
         content.innerHTML = this.responseText;
 
         let tags = content.querySelectorAll(tagToSearch);
-        let listContainer = document.getElementById("Content");
+        let listContainer = document.getElementById(`Content${divNum}`);
 
         listContainer.innerHTML = "";
 
