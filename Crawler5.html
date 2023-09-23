@@ -14,7 +14,7 @@
             padding: 12px 20px;
             margin: 8px 3px;
             box-sizing: border-box;
-            border: 2px solid #ccc;
+            border: 4px solid #ccc;
             border-radius: 15px;
         }
     
@@ -35,10 +35,22 @@
             margin: 8px 3px;
             border-radius: 15px;
             cursor: pointer;
+            font-size: large;
         }
     
         button:hover {
             background-color: #45a049;
+        }
+
+        button.ADD {
+            /* background: #45bd55; */
+            border-radius: 8px;
+            /* padding: 12px; */
+            border: 4px solid #45a049;
+            /* border: 4px solid #3bd343; */
+            padding: 12px 25px;
+
+            font-size: larger;
         }
     
         button.remove {
@@ -93,8 +105,15 @@
 
     </style>
     <script>
-        const listOfTags = ["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","blockquote","body","br","button","canvas","caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6", "head", "header", "hr", "html", "i", "iframe", "img", "input", "ins", "kbd", "label", "legend", "li", "link", "main", "map", "mark", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "picture", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp",  "ul"];
+        const listOfTags = ["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","blockquote","body","br","button","canvas"
+                            ,"caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","div","dl","dt","em","embed"
+                            ,"fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hr","html","i","iframe"
+                            ,"img","input","ins","kbd","label","legend","li","link","main","map","mark","meta","meter","nav","noscript","object","ol"
+                            ,"optgroup","option","output","p","param","picture","pre","progress","q","rp","rt","ruby","s","samp","ul"
+                        ];
+                        
         let divCount = 0;
+
         function addDiv() {
             divCount++;
             let newMainDiv = document.createElement("div");
@@ -117,10 +136,12 @@
         function checkURL(divNum) {
             const url = document.getElementById('urlInput' + divNum).value;
             if (isValidURL(url)) {
-                document.getElementById('urlInput' + divNum).style.backgroundColor = 'green';
-                document.getElementById('urlInput' + divNum).style.borderColor = 'green';
+                // document.getElementById('urlInput' + divNum).style.backgroundColor = 'green';
+                // document.getElementById('urlInput' + divNum).style.borderColor = 'white';
+                document.getElementById('urlInput' + divNum).style.borderColor = '#3bd343';
             } else {
-                document.getElementById('urlInput' + divNum).style.backgroundColor = 'red';
+                // document.getElementById('urlInput' + divNum).style.backgroundColor = 'red';
+                // document.getElementById('urlInput' + divNum).style.borderColor = 'white';
                 document.getElementById('urlInput' + divNum).style.borderColor = 'red';
             }
         }
@@ -129,10 +150,10 @@
             const tag = document.getElementById('tagInput' + divNum).value;
             if (listOfTags.includes(tag)) {
                 document.getElementById('tagInput' + divNum).style.backgroundColor = 'green';
-                document.getElementById('tagInput' + divNum).style.borderColor = 'green';
+                document.getElementById('tagInput' + divNum).style.borderColor = '#white';
             } else {
                 document.getElementById('tagInput' + divNum).style.backgroundColor = 'red';
-                document.getElementById('tagInput' + divNum).style.borderColor = 'red';
+                document.getElementById('tagInput' + divNum).style.borderColor = 'white';
             }
         }
 
@@ -159,6 +180,9 @@
                 return;
             }
 
+            const listContainer = document.getElementById('Content' + divNum);
+            listContainer.innerHTML = "";
+            
             const xhttp = new XMLHttpRequest();
             xhttp.onload = function() {
                 if (this.status === 200) {
@@ -166,9 +190,6 @@
                     content.innerHTML = this.responseText;
 
                     let tags = content.querySelectorAll(tagToSearch);
-                    let listContainer = document.getElementById('Content' + divNum);
-
-                    listContainer.innerHTML = "";
 
                     if (tags.length === 0) {
                         alert("No matching tags found.");
@@ -184,24 +205,21 @@
                     });
                 } else {
                     alert("Error loading the website.");
-                    listContainer.innerHTML = "";
                 }
             };
             xhttp.onerror = function() {
                 alert("An error occurred while loading the website.");
-                listContainer.innerHTML = "";
             };
             xhttp.open("GET", url, true);
             xhttp.send();
         }
 
-
     </script>
 </head>
 
 <body>
-    <button style="display: inline;" onclick="addDiv()">Add</button>
-    <h1 style="display: inline;">Find Tags on a Web Page</h1>
+        <button class="ADD" style="display: inline;" onclick="addDiv()">Add</button>
+        <h1 style="display: inline;">Find Tags on a Web Page</h1>
 </body>
 
 </html>
