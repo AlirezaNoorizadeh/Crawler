@@ -161,30 +161,40 @@
 
             const xhttp = new XMLHttpRequest();
             xhttp.onload = function() {
-                let content = document.createElement("div");
-                content.innerHTML = this.responseText;
+                if (this.status === 200) {
+                    let content = document.createElement("div");
+                    content.innerHTML = this.responseText;
 
-                let tags = content.querySelectorAll(tagToSearch);
-                let listContainer = document.getElementById('Content' + divNum);
+                    let tags = content.querySelectorAll(tagToSearch);
+                    let listContainer = document.getElementById('Content' + divNum);
 
-                listContainer.innerHTML = "";
+                    listContainer.innerHTML = "";
 
-                if (tags.length === 0) {
-                    alert("No matching tags found.");
-                    return;
+                    if (tags.length === 0) {
+                        alert("No matching tags found.");
+                        return;
+                    }
+
+                    tags.forEach(tag => {
+                        let codeElement = document.createElement("code");
+                        codeElement.innerText = tag.outerHTML;
+                        let tagDiv = document.createElement("div");
+                        tagDiv.appendChild(codeElement);
+                        listContainer.appendChild(tagDiv);
+                    });
+                } else {
+                    alert("Error loading the website.");
+                    listContainer.innerHTML = "";
                 }
-
-                tags.forEach(tag => {
-                    let codeElement = document.createElement("code");
-                    codeElement.innerText = tag.outerHTML;
-                    let tagDiv = document.createElement("div");
-                    tagDiv.appendChild(codeElement);
-                    listContainer.appendChild(tagDiv);
-                });
+            };
+            xhttp.onerror = function() {
+                alert("An error occurred while loading the website.");
+                listContainer.innerHTML = "";
             };
             xhttp.open("GET", url, true);
             xhttp.send();
         }
+
 
     </script>
 </head>
