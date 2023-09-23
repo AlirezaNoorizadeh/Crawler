@@ -90,24 +90,18 @@
             border-radius: 8px;
             padding: 12px;
         }
+
     </style>
     <script>
+        const listOfTags = ["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","blockquote","body","br","button","canvas","caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6", "head", "header", "hr", "html", "i", "iframe", "img", "input", "ins", "kbd", "label", "legend", "li", "link", "main", "map", "mark", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "picture", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp",  "ul"];
         let divCount = 0;
-
-        const listOfTags = ["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","blockquote","body","br","button","canvas"
-                            ,"caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","div","dl","dt","em","embed"
-                            ,"fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hr","html","i","iframe"
-                            ,"img","input","ins","kbd","label","legend","li","link","main","map","mark","meta","meter","nav","noscript","object","ol"
-                            ,"optgroup","option","output","p","param","picture","pre","progress","q","rp","rt","ruby","s","samp","ul"
-                        ];
-
         function addDiv() {
             divCount++;
             let newMainDiv = document.createElement("div");
             newMainDiv.id = "main";
             let newDiv = document.createElement("div");
             newDiv.innerHTML = '<input type="text" id="urlInput' + divCount + '" placeholder="Enter website URL" oninput="checkURL(' + divCount + ')">' +
-                        '<input type="text" id="tagInput' + divCount + '" placeholder="Enter tag to search">' +
+                        '<input type="text" id="tagInput' + divCount + '" placeholder="Enter tag to search" oninput="checkTag(' + divCount + ')">' +
                         '<button onclick="loadDoc(' + divCount + ')">Load</button>' +
                         '<button class="remove" onclick="removeDiv(event)">Remove</button>' +
                         '<div class="contents" id="Content' + divCount + '"></div>';
@@ -123,9 +117,22 @@
         function checkURL(divNum) {
             const url = document.getElementById('urlInput' + divNum).value;
             if (isValidURL(url)) {
-                document.getElementById('urlInput' + divNum).style.backgroundColor = "#45a049";
+                document.getElementById('urlInput' + divNum).style.backgroundColor = 'green';
+                document.getElementById('urlInput' + divNum).style.borderColor = 'green';
             } else {
-                document.getElementById('urlInput' + divNum).style.backgroundColor = "rgb(221, 0, 0)";
+                document.getElementById('urlInput' + divNum).style.backgroundColor = 'red';
+                document.getElementById('urlInput' + divNum).style.borderColor = 'red';
+            }
+        }
+
+        function checkTag(divNum) {
+            const tag = document.getElementById('tagInput' + divNum).value;
+            if (listOfTags.includes(tag)) {
+                document.getElementById('tagInput' + divNum).style.backgroundColor = 'green';
+                document.getElementById('tagInput' + divNum).style.borderColor = 'green';
+            } else {
+                document.getElementById('tagInput' + divNum).style.backgroundColor = 'red';
+                document.getElementById('tagInput' + divNum).style.borderColor = 'red';
             }
         }
 
