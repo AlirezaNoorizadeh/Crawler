@@ -1,11 +1,11 @@
 <div>
-    <input type="text" id="urlInput" placeholder="Enter website URL">
-    <input type="text" id="tagInput" placeholder="Enter tag to search">
-    <button onclick="loadDoc()">Load</button>
-    <div id="Content"></div>
+    <input type="text" id="urlInput0" placeholder="Enter website URL">
+    <input type="text" id="tagInput0" placeholder="Enter tag to search">
+    <button onclick="loadDoc(0)">Load</button>
+    <div id="Content0"></div>
 </div>
 <button onclick="addDiv()">Add</button>
-
+<button onclick="removeDiv()">Remove</button>
 
 <script>
 let divCount = 0;
@@ -16,7 +16,9 @@ function addDiv() {
     newDiv.innerHTML = `<input type="text" id="urlInput${divCount}" placeholder="Enter website URL">
                         <input type="text" id="tagInput${divCount}" placeholder="Enter tag to search">
                         <button onclick="loadDoc(${divCount})">Load</button>
-                        <div id="Content${divCount}"></div>`;
+                        <div id="Content${divCount}"></div>
+                        <button onclick="addDiv()">Add</button>
+                        <button onclick="removeDiv()">Remove</button>`;
     document.body.appendChild(newDiv);
 }
 
@@ -69,5 +71,4 @@ function loadDoc(divNum) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
-
 </script>
