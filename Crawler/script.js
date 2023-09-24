@@ -2,9 +2,9 @@ const listOfTags = ["html", "html", "head", "/head", "body", "a", "abbr", "acron
     , "bgsound", "big", "blink", "blockquote", "body", "br", "button", "canvas", "caption", "center", "cite", "code", "col", "colgroup", "command", "content", "data", "datalist"
     , "dd", "del", "details", "dfn", "dialog", "dir", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "font", "footer", "form", "frame", "frameset", "h1"
     , "h2", "h3", "h4", "h5", "h6", "header", "hr", "html", "i", "iframe", "img", "input", "ins", "isindex", "kbd", "keygen", "label", "legend", "li", "link", "listing", "main"
-    , "map", "mark", "marquee", "menu", "meta", "meter", "nav", "nobr", "noembed", "noframes", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param"
-    , "picture", "plaintext", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "script", "section", "select", "shadow", "small", "source", "span", "strike", "strong"
-    , "style", "sub", "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "tt", "u", "ul", "var", "video", "wbr", "xmp"
+    , "map", "mark", "marquee", "menu", "meta", "meter", "nav", "nobr", "noembed", "noframes", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param" , "picture"
+    , "plaintext", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "script", "section", "select", "shadow", "small", "source", "span", "strike", "strong" , "style" , "sub"
+    , "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "tt", "u", "ul", "var", "video", "wbr", "xmp"
 ];
 
 let divCount = 0;
@@ -52,11 +52,11 @@ function isValidURL(url) {
         return false;
     }
 
-    const domain = url.match(/^https?:\/\/(?:www\.)?([^/]+)/i)[1];
-    const subdomains = domain.split('.');
-    if (subdomains.length > 2) {
-        return false;
-    }
+    // const domain = url.match(/^https?:\/\/(?:www\.)?([^/]+)/i)[1];
+    // const subdomains = domain.split('.');
+    // if (subdomains.length > 2) {
+    //     return false;
+    // }
 
     return true;
 }
@@ -67,6 +67,8 @@ function loadDoc(divNum) {
 
     if (!isValidURL(url)) {
         alert("Please enter a valid URL.");
+        const listContainer1 = document.getElementById('Content' + divNum);
+        listContainer1.innerHTML = "";
         return;
     }
 
