@@ -16,22 +16,24 @@ __________________
 - 📤 In the panels, you can access the information of that site by filling in the url and tag section and pressing the load button.
 - 💥 Finally, you can use the remove button to remove the desired panel.
 
-![JS Project 01](https://github.com/AlirezaNoorizadeh/Crawler/assets/130656521/31a1d849-25b0-4b1e-9daa-af748b5e1290)
+![JS Project 01 visible](https://github.com/AlirezaNoorizadeh/Crawler/assets/130656521/22c306e3-016d-4731-a011-914215b60376)
 
 __________________
 ## 2️⃣ Display information and errors
 - 📝 In this section, according to the input information, you will see the content of the desired site listed in a box and you will have access to them.
 - ❓If you enter any of the sections incorrectly or if that tag is not present on that site, the program will show you an alert specific to that problem.
 
-![JS Project 02](https://github.com/AlirezaNoorizadeh/Crawler/assets/130656521/ce7e09ab-8925-4351-9673-d1c3d5dede49)
+![JS Project 02 visible](https://github.com/AlirezaNoorizadeh/Crawler/assets/130656521/8a7f3817-c0b0-49ee-9581-9fae65d3a86a)
 
 __________________
 ## 3️⃣ How to display in different sizes
 - 💻 This program shows good compatibility across various dimensions.
 
-![JS Project 03](https://github.com/AlirezaNoorizadeh/Crawler/assets/130656521/47d56bba-5e5c-46d5-b015-38ba29bbbb91)
+![JS Project 03 visible](https://github.com/AlirezaNoorizadeh/Crawler/assets/130656521/48268ea5-13c3-4a79-a4fc-b445fa74f62e)
 
 __________________
 ✅ I would be happy to hear your opinion about my program, and I would appreciate it if you could also visit my other programs. 🙏
 
 Maze = https://github.com/AlirezaNoorizadeh/Maze
+
+
